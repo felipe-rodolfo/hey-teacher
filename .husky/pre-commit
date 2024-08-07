@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Execute Laravel Stan
+echo "Running Laravel Stan..."
+./vendor/bin/phpstan analyse --memory-limit=1G
+
+# Verifica se Laravel Stan teve sucesso
+if [ $? -ne 0 ]; then
+  echo "Laravel Stan encontrou erros. Corrija-os antes de fazer commit."
+  exit 1
+fi
+
+# Execute Pest PHP
+echo "Running Pest PHP..."
+./vendor/bin/pest
+
+# Verifica se Pest PHP teve sucesso
+if [ $? -ne 0 ]; then
+  echo "Pest PHP encontrou falhas. Corrija-os antes de fazer commit."
+  exit 1
+fi
+
+echo "Verificações concluídas com sucesso. Pronto para o commit!"
