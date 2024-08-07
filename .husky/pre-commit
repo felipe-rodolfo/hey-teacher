@@ -12,7 +12,7 @@ fi
 
 # Execute Pest PHP
 echo "Running Pest PHP..."
-./vendor/bin/pest
+./vendor/bin/pest --dirty --compact
 
 # Verifica se Pest PHP teve sucesso
 if [ $? -ne 0 ]; then
