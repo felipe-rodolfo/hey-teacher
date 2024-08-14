@@ -13,10 +13,10 @@
         </span>
       </button>
     </x-form>
-    <x-form :action="route('question.like', $question)" method="POST">  <button class="flex items-start space-x-2">
+    <x-form :action="route('question.unlike', $question)" method="POST">  <button class="flex items-start space-x-2">
         <x-icons.thumbs-down class='w-5 h-5 text-red-300 cursor-pointer hover:text-red-500' />
         <span>
-          {{ $question->dislikes }}  </span>
+          {{ $question->unlikes }}  </span>
       </button>
     </x-form>
   </span>
