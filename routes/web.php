@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\{DashboardController, ProfileController, QuestionController};
+use App\Http\Controllers\{DashboardController, ProfileController, PublishQuestionController, QuestionController};
+use App\Http\Controllers\Question\PublishController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -11,6 +12,7 @@ Route::get('/', function () {
     }
 });
 
+Route::put('/question/publish', [PublishController::class, 'store'])->name('question.store');
 Route::post('/question/store', [QuestionController::class, 'store'])->name('question.store');
 
 Route::get('/dashboard', DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
