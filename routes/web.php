@@ -12,7 +12,8 @@ Route::get('/', function () {
     }
 });
 
-Route::put('/question/publish', [PublishController::class, 'store'])->name('question.store');
+Route::put('/question/publish/{question}', PublishController::class)->name('question.publish');
+
 Route::post('/question/store', [QuestionController::class, 'store'])->name('question.store');
 
 Route::get('/dashboard', DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
