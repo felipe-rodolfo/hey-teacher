@@ -15,10 +15,14 @@ class Question extends Model
         'draft' => 'boolean'
     ];
 
+    /**
+     * @return HasMany<Vote>
+     */
     public function votes(): HasMany
     {
         return $this->hasMany(Vote::class);
     }
+
 
     public function createdBy(): BelongsTo
     {

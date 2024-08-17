@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\{DashboardController, ProfileController, PublishQuestionController, QuestionController};
-use App\Http\Controllers\Question\PublishController;
+use App\Http\Controllers\{DashboardController, Question, ProfileController};
+use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,9 +16,12 @@ Route::get('/dashboard', DashboardController::class)->middleware(['auth', 'verif
 
 Route::middleware('auth')->group(function () {
     // Question
-    Route::put('/question/publish/{question}', PublishController::class)->name('question.publish');
+    Route::put('/question/publish/{question}', Question\PublishController::class)->name('question.publish');
     Route::post('/question/store', [QuestionController::class, 'store'])->name('question.store');
+    Route::post('/question/like/{question}', Question\LikeController::class)->name('question.like');
+    Route::post('/question/unlike/{question}', Question\UnlikeController::class)->name('question.unlike');
 
+    // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
