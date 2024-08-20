@@ -5,18 +5,8 @@
         </h2>
     </x-slot>
 
-    <div class="mx-auto my-5 max-w-7xl sm:px-6 lg:px-8" >            
-        <x-form post :action="route('question.store')">
-            
-            <x-textarea name="question" label='Question'></x-textarea>
-            <x-btn.primary type="submit">
-                Send
-            </x-btn.primary>
-            <x-btn.reset type="reset">
-                Cancel
-            </x-btn.reset>
-                
-        </x-form>
+    <div class="mx-auto my-5 max-w-7xl sm:px-6 lg:px-8" >
+
 
         <hr class="mt-4 border-gray-700 border-dashed">
 
@@ -27,7 +17,7 @@
             @foreach ($questions as $item)
                 <x-question :question="$item" />
             @endforeach
-            
+
         </div>
     </div>
 </x-app-layout>

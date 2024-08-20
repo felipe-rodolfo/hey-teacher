@@ -7,9 +7,16 @@ use App\Models\User;
 use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class QuestionController extends Controller
 {
+    public function index(): View
+    {
+        return view('question.index', [
+            'questions' => Auth()->user()->questions,
+        ]);
+    }
     public function store(): RedirectResponse
     {
         request()->validate([
@@ -29,6 +36,6 @@ class QuestionController extends Controller
             'draft' => true
         ]);
 
-        return to_route('dashboard');
+        return redirect()->back();
     }
 }
