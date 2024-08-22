@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
-use App\Models\User;
 use Closure;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+
 
 class QuestionController extends Controller
 {
@@ -37,5 +36,14 @@ class QuestionController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function destroy(Question $question): RedirectResponse
+    {
+        $this->authorize('destroy', $question);
+
+        $question->delete();
+
+        return back();
     }
 }
