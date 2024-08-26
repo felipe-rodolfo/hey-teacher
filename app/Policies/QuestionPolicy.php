@@ -7,6 +7,10 @@ use App\Models\User;
 
 class QuestionPolicy
 {
+    public function update(User $user, Question $question): bool
+    {
+        return $question->draft;
+    }
 
     public function publish(User $user, Question $question): bool
     {
