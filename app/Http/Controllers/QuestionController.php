@@ -52,4 +52,11 @@ class QuestionController extends Controller
         $this->authorize('update', $question);
         return view('question.edit', compact('question'));
     }
+
+    public function update(Question $question): RedirectResponse
+    {
+        $question->question = request()->question;
+        $question->save();
+        return back();
+    }
 }
