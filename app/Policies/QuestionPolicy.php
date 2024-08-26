@@ -9,7 +9,7 @@ class QuestionPolicy
 {
     public function update(User $user, Question $question): bool
     {
-        return $question->draft;
+        return $question->draft && $question->createdBy->is($user);
     }
 
     public function publish(User $user, Question $question): bool
