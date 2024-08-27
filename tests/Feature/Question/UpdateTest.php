@@ -4,6 +4,8 @@ use App\Models\Question;
 use App\Models\User;
 
 use function Pest\Laravel\actingAs;
+use function Pest\Laravel\assertDatabaseCount;
+use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\get;
 use function Pest\Laravel\put;
 
@@ -44,4 +46,52 @@ it('should make sure that only person who created the question can edit the ques
 
     actingAs($rightUser);
     put(route('question.update', $question), ['question' => 'New Question'])->assertRedirect();
+});
+
+it('should be able to update a new question bigger than 255 characters', function () {
+    $user     = User::factory()->create();
+    $question = Question::factory()->for($user, 'createdBy')->create(['draft' => true]);
+
+    actingAs($user);
+
+    $request = put(route('question.update', $question), [
+        'question' => str_repeat('*', 260) . '?',
+    ]);
+
+    $request->assertRedirect();
+    assertDatabaseCount('questions', 1);
+    assertDatabaseHas('questions', ['question' => str_repeat('*', 260) . '?']);
+});
+
+it('should check if ends with question mark ?', function () {
+    $user     = User::factory()->create();
+    $question = Question::factory()->for($user, 'createdBy')->create(['draft' => true]);
+    actingAs($user);
+
+    $request = put(route('question.update', $question), [
+        'question' => str_repeat('*', 10),
+    ]);
+
+    $request->assertSessionHasErrors([
+        'question' => 'Are you sure that is a question? It is missing question mark in the end',
+    ]);
+
+    assertDatabaseHas('questions', [
+        'question' => $question->question,
+    ]);
+});
+
+it('should have at least 10 characters', function () {
+    $user     = User::factory()->create();
+    $question = Question::factory()->for($user, 'createdBy')->create(['draft' => true]);
+    actingAs($user);
+
+    $request = put(route('question.update', $question), [
+        'question' => str_repeat('*', 8) . '?',
+    ]);
+
+    $request->assertSessionHasErrors(['question' => __('validation.min.string', ['min' => 10, 'attribute' => 'question'])]);
+    assertDatabaseHas('questions', [
+        'question' => $question->question,
+    ]);
 });
