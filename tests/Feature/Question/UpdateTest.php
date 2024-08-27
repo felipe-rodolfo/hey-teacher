@@ -6,7 +6,6 @@ use App\Models\User;
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\get;
 use function Pest\Laravel\put;
 
 it('should be able to update a question', function () {
@@ -17,7 +16,7 @@ it('should be able to update a question', function () {
 
     put(route('question.update', $question), [
         'question' => 'Updated Question?'
-    ])->assertRedirect();
+    ])->assertRedirect(route('question.index'));
 
     $question->refresh();
 
