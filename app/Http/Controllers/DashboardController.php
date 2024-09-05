@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -13,7 +12,7 @@ class DashboardController extends Controller
         return view('dashboard', [
             'questions' => Question::withSum('votes', 'like')
                 ->withSum('votes', 'unlike')
-                ->get(),
+                ->paginate(5),
         ]);
     }
 }
