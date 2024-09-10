@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Question;
 use Closure;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 
@@ -14,6 +15,7 @@ class QuestionController extends Controller
     {
         return view('question.index', [
             'questions' => Auth()->user()->questions,
+            'archivedQuestions' => Auth()->user()->questions()->onlyTrashed()->get()
         ]);
     }
     public function store(): RedirectResponse
