@@ -22,10 +22,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/question/{question}/edit', [QuestionController::class, 'edit'])->name('question.edit');
     Route::put('/question/{question}', [QuestionController::class, 'update'])->name('question.update');
     Route::patch('/question/{question}', [QuestionController::class, 'archive'])->name('question.archive');
+    Route::delete('/question/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
+    Route::patch('/question/{question}/restore', [QuestionController::class, 'restore'])->name('question.restore');
     Route::post('/question/store', [QuestionController::class, 'store'])->name('question.store');
     Route::post('/question/like/{question}', Question\LikeController::class)->name('question.like');
     Route::post('/question/unlike/{question}', Question\UnlikeController::class)->name('question.unlike');
-    Route::delete('/question/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

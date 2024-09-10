@@ -51,7 +51,7 @@ class QuestionController extends Controller
     {
         $this->authorize('destroy', $question);
 
-        $question->delete();
+        $question->forceDelete();
 
         return back();
     }
@@ -80,5 +80,12 @@ class QuestionController extends Controller
         $question->question = request()->question;
         $question->save();
         return to_route('question.index');
+    }
+
+    public function restore(int $id): RedirectResponse
+    {
+        $question = Question::withTrashed()->find($id);
+        $question->restore();
+        return back();
     }
 }
