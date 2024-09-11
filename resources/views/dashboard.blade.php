@@ -18,7 +18,7 @@
                 <x-question :question="$item" />
             @endforeach
 
-            {{ $questions->links() }}
+            {{ $questions->withQueryString()->links() }}
         </div>
     </div>
 </x-app-layout>

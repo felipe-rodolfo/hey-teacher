@@ -3,7 +3,7 @@
 use App\Models\Question;
 use App\Models\User;
 
-use function Pest\Laravel\{actingAs, assertDatabaseCount, assertDatabaseHas, post, postJson};
+use function Pest\Laravel\{actingAs, assertDatabaseCount, assertDatabaseHas, post};
 
 it('should be able to create a new questionn bigger than 255 characters', function () {
 
